@@ -101,11 +101,10 @@ if __name__=="__main__":
 
         st.image(image_main)
         st.sidebar.image(image_side)
-        file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
+#         file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
 
         if file is not None:
             df=csv_test_input()
-            data.seek(0)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
