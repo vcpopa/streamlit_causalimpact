@@ -103,8 +103,9 @@ if __name__=="__main__":
         st.sidebar.image(image_side)
 #         file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
 
-        if file is not None:
-            df=csv_test_input()
+        
+        df=csv_test_input()
+        if df is not None:
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
@@ -133,6 +134,8 @@ if __name__=="__main__":
                 st.header("FULL REPORT")
                 report=report.replace("{CausalImpact}","")
                 st.markdown(report)
+        else:
+            st.markdown("FILE IS NONE")
     except:
         st.markdown(traceback.format_exc())
 
