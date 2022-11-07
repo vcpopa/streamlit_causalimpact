@@ -17,6 +17,7 @@ import os
 import io
 import traceback
 sys.tracebacklimit = 0
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 class Impact():
     def __init__(self,df,date_col,control,response,treatment_start):
@@ -39,9 +40,9 @@ class Impact():
         self.treatment_start_index=self.df.index[self.df[self.date_col]==self.treatment_start]
 
         self.start_date_index=int(self.df.index[self.df[self.date_col]==self.df[self.date_col].min()][0])
-        st.markdown(self.start_date_index)
+
         self.end_date_index=int(self.df.index[self.df[self.date_col]==self.df[self.date_col].max()][0])
-        st.markdown(self.end_date_index)
+  
 
         if len(self.treatment_start_index)>1:
             raise ValueError(f"{self.treatment_start} occurs multiple times in the dataset, please aggregate your data")
@@ -65,9 +66,9 @@ class Impact():
 
         
         pre_period = [pd.to_datetime(date) for date in  [self.df[self.date_col].min(),self.df[self.date_col].iloc[self.treatment_start_index-1]]]
-        st.markdown(pre_period)
+
         post_period = [pd.to_datetime(date) for date in [self.df[self.date_col].iloc[self.treatment_start_index],self.df[self.date_col].max()]]
-        st.markdown(post_period)
+
         self.df.set_index(self.date_col,inplace=True)
 
 
@@ -85,8 +86,6 @@ class Impact():
 
 
 if __name__=="__main__":
-#     caching.clear_cache()
-
     st.title('CAUSAL IMPACT ANALYSIS')
     image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
     image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
@@ -120,13 +119,13 @@ if __name__=="__main__":
             st.pyplot(impact_plot)
 
             st.header("SUMMARY REPORT")
-            impact_summary=impact_summary.replace("\n","<br>")
-            impact_summary=impact_summary.replace("{Causal Impact}","")
-            impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
+#             impact_summary=impact_summary.replace("\n","<br>")
+#             impact_summary=impact_summary.replace("{Causal Impact}","")
+#             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
             st.markdown(impact_summary,unsafe_allow_html=True)
 
             st.header("FULL REPORT")
-            report=report.replace("{CausalImpact}","")
+#             report=report.replace("{CausalImpact}","")
             st.markdown(report)
 
 
