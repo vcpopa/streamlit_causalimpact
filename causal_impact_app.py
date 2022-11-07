@@ -67,7 +67,10 @@ class Impact():
         
         pre_period = [pd.to_datetime(date) for date in  [self.df[self.date_col].min(),self.df[self.date_col].iloc[self.treatment_start_index-1]]]
         st.markdown("PRE-PERIOD")
+        st.markdown(pre_period)
+        st.markdown("POST-PERIOD")
         post_period = [pd.to_datetime(date) for date in [self.df[self.date_col].iloc[self.treatment_start_index],self.df[self.date_col].max()]]
+        st.markdown(post_period)
         self.df.set_index(self.date_col,inplace=True)
 
 
