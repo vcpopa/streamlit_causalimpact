@@ -79,7 +79,8 @@ class Impact():
         impact = CausalImpact(data=self.df, pre_period=pre_period, post_period=post_period)
         st.markdown(impact)
         # Visualization
-        impact_plot=impact.plot()
+#         impact_plot=impact.plot()
+        impact_plot=None
         st.markdown("IMPACT PLOTTED")
         impact_summary=impact.summary()
         report=impact.summary(output='report')
