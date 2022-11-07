@@ -80,6 +80,17 @@ class Impact():
 
         return ts_fig,impact_plot,impact_summary,report
 
+    
+def csv_test_input():
+    """ Function to take File based inputs for Network parameter """
+    uploaded_file = st.sidebar.file_uploader("UPLOAD DATA", type="csv")
+    if uploaded_file is None:
+        return None
+    uploaded_file.seek(0)
+    inputDF = pd.read_csv(uploaded_file)
+    # st.text ("File is closed ? --> {} ".format(uploaded_file.closed))
+    return inputDF
+
 if __name__=="__main__":
 #     caching.clear_cache()
     try:
@@ -93,8 +104,8 @@ if __name__=="__main__":
         file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
 
         if file is not None:
-            data=io.TextIOWrapper(file)
-            df=pd.read_csv(data)
+            df=csv_test_input()
+            data.seek(0)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
