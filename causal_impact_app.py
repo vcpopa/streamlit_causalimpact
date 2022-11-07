@@ -2,23 +2,20 @@ from cProfile import label
 import pandas as pd
 import numpy as np
 from datetime import datetime
-
+# Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
-
+# Causal impact
 from causalimpact import CausalImpact
 import numpy as np
-
-try:
-    np.distutils.__config__.blas_opt_info = np.distutils.__config__.blas_ilp64_opt_info
-except Exception:
-    pass
 import streamlit as st
 from PIL import Image
 import sys
 import re
 from datetime import datetime
 import os
+from streamlit import caching
+
 import traceback
 sys.tracebacklimit = 0
 
@@ -99,6 +96,7 @@ def get_data(file):
     return df
 
 if __name__=="__main__":
+    caching.clear_cache()
     try:
         st.title('CAUSAL IMPACT ANALYSIS')
         # st.header('Analyze the descriptive statistics and the dsistribution of your data. Preview and save your graphics.')
