@@ -96,6 +96,7 @@ if __name__=="__main__":
         
         if file is not None:
             df=pd.read_csv(file)
+            st.table(df)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
