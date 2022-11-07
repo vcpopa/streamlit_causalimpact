@@ -110,7 +110,7 @@ if __name__=="__main__":
             if st.sidebar.button("RUN"):
                 imp=Impact(df=df,date_col=date_col,control=control,response=response,treatment_start=treatment_start)
                 ts_fig,impact_plot,impact_summary,report=imp.causal_impact()
-
+                st.markdown(imp.date_col)
                 st.pyplot(ts_fig)
 
                 st.header("IMPACT PLOTS")
