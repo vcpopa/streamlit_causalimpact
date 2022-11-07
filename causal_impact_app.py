@@ -18,7 +18,6 @@ import io
 
 class Impact():
     def __init__(self,df,date_col,control,response,treatment_start):
-        st.markdown("INIT")
         self.df=df
         self.date_col=date_col
         self.control=control
@@ -55,20 +54,16 @@ class Impact():
         ts_fig=plt.figure()
         st.header("TIME SERIES PLOT")
         sns.set(rc={'figure.figsize':(12,8)})
-        st.markdown("PLOTTING CONTROL")
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.control],label='CONTROL')
-        st.markdown("PLOTTING RESPONSE")
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.response],label='RESPONSE')
-#         plt.axvline(x= self.df[self.date_col].iloc[self.treatment_start_index],color='r')
+        plt.axvline(x= self.df[self.date_col].iloc[self.treatment_start_index],color='r')
         
         
         # Set pre-period
 
         
         pre_period = [pd.to_datetime(date) for date in  [self.df[self.date_col].min(),self.df[self.date_col].iloc[self.treatment_start_index-1]]]
-        st.markdown("PRE-PERIOD")
         st.markdown(pre_period)
-        st.markdown("POST-PERIOD")
         post_period = [pd.to_datetime(date) for date in [self.df[self.date_col].iloc[self.treatment_start_index],self.df[self.date_col].max()]]
         st.markdown(post_period)
         self.df.set_index(self.date_col,inplace=True)
@@ -79,9 +74,8 @@ class Impact():
         impact = CausalImpact(data=self.df, pre_period=pre_period, post_period=post_period)
         st.markdown(impact)
         # Visualization
-#         impact_plot=impact.plot()
+        impact_plot=impact.plot()
         impact_plot=None
-        st.markdown("IMPACT PLOTTED")
         impact_summary=impact.summary()
         report=impact.summary(output='report')
 
