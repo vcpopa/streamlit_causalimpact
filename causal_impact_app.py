@@ -74,17 +74,7 @@ class Impact():
 
     # Causal impact model
         impact = CausalImpact(data=self.df, pre_period=pre_period, post_period=post_period)
-        impact.run()
-        # Visualization
-        impact_plot=impact.plot()
-#         impact.run()
-        impact_summary=impact.summary()
-        st.info(impact_summary)
-#         impact.run()
-        report=impact.summary(output='report')
-        st.info(report)
-
-        return ts_fig,impact_plot,impact_summary,report
+        return ts_fig,impact
 
 
 if __name__=="__main__":
@@ -113,22 +103,22 @@ if __name__=="__main__":
         if st.sidebar.button("RUN"):
             imp=Impact(df=df,date_col=date_col,control=control,response=response,treatment_start=treatment_start)
             
-            ts_fig,impact_plot,impact_summary,report=imp.causal_impact()
+            ts_fig,impact=imp.causal_impact()
             
             st.pyplot(ts_fig)
 
             st.header("IMPACT PLOTS")
-            st.pyplot(impact_plot)
+            st.pyplot(impact.plot()
 
             st.header("SUMMARY REPORT")
 #             impact_summary=impact_summary.replace("\n","<br>")
 #             impact_summary=impact_summary.replace("{Causal Impact}","")
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-            st.write("{}".format(impact_summary))
+            st.write("{}".format(impact.summary())
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
-            st.write("{}".format(report))
+            st.write("{}".format(impact.summary(output='report'))
 
 
 
