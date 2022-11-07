@@ -108,7 +108,7 @@ if __name__=="__main__":
             st.pyplot(ts_fig)
 
             st.header("IMPACT PLOTS")
-            st.pyplot(impact.plot()
+            st.pyplot(impact.plot())
 
             st.header("SUMMARY REPORT")
 #             impact_summary=impact_summary.replace("\n","<br>")
