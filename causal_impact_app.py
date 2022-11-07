@@ -15,6 +15,8 @@ import re
 from datetime import datetime
 import os
 import io
+import traceback
+sys.tracebacklimit = 0
 
 class Impact():
     def __init__(self,df,date_col,control,response,treatment_start):
@@ -67,7 +69,6 @@ class Impact():
         post_period = [pd.to_datetime(date) for date in [self.df[self.date_col].iloc[self.treatment_start_index],self.df[self.date_col].max()]]
         st.markdown(post_period)
         self.df.set_index(self.date_col,inplace=True)
-        st.table(self.df.head())
 
 
     # Causal impact model
@@ -75,8 +76,9 @@ class Impact():
         impact.run()
         # Visualization
         impact_plot=impact.plot()
-        impact_plot=None
+        impact.run()
         impact_summary=impact.summary()
+        impact.run()
         report=impact.summary(output='report')
 
         return ts_fig,impact_plot,impact_summary,report
@@ -86,7 +88,6 @@ if __name__=="__main__":
 #     caching.clear_cache()
 
     st.title('CAUSAL IMPACT ANALYSIS')
-    # st.header('Analyze the descriptive statistics and the dsistribution of your data. Preview and save your graphics.')
     image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
     image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
 
@@ -97,7 +98,7 @@ if __name__=="__main__":
 
     if file is not None:
         df=pd.read_csv(file)
-#             st.table(df)
+
         df2=df.copy()
         cols_menu_opts=df.columns
         mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
