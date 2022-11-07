@@ -79,22 +79,6 @@ class Impact():
 
         return ts_fig,impact_plot,impact_summary,report
 
-
-
-def get_data(file):   
-    
-    read_cache_csv = st.cache(pd.read_csv, allow_output_mutation = True)
-    read_cache_feather=st.cache(pd.read_feather,allow_output_mutation=True)
-    read_cache_parquet=st.cache(pd.read_parquet,allow_output_mutation=True)
-    if file.name.endswith('.csv'):
-        df = read_cache_csv(file)
-    if file.name.endswith('.feather'):
-        df=read_cache_feather(file)
-    if file.name.endswith('.parquet'):
-        df=read_cache_parquet(file)
-    
-    return df
-
 if __name__=="__main__":
 #     caching.clear_cache()
     try:
@@ -105,10 +89,10 @@ if __name__=="__main__":
 
         st.image(image_main)
         st.sidebar.image(image_side)
-        file  = st.sidebar.file_uploader(' ', type = ['csv','feather','parquet'])
+        file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
 
         if file is not None:
-            df = get_data(file)
+            df=pd.read_csv(file)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
