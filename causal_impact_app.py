@@ -122,11 +122,11 @@ if __name__=="__main__":
 #             impact_summary=impact_summary.replace("\n","<br>")
 #             impact_summary=impact_summary.replace("{Causal Impact}","")
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-            st.text("{}".format(impact_summary))
+            st.write("{}".format(impact_summary))
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
-            st.text("{}".format(report))
+            st.write("{}".format(report))
 
 
 
