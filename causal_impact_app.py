@@ -77,9 +77,9 @@ class Impact():
         impact.run()
         # Visualization
         impact_plot=impact.plot()
-        impact.run()
+#         impact.run()
         impact_summary=impact.summary()
-        impact.run()
+#         impact.run()
         report=impact.summary(output='report')
 
         return ts_fig,impact_plot,impact_summary,report
@@ -122,11 +122,11 @@ if __name__=="__main__":
 #             impact_summary=impact_summary.replace("\n","<br>")
 #             impact_summary=impact_summary.replace("{Causal Impact}","")
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-            st.text(impact_summary)
+            st.text("{}".format(impact_summary))
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
-            st.text(report)
+            st.text("{}".format(report))
 
 
 
