@@ -2,12 +2,17 @@ from cProfile import label
 import pandas as pd
 import numpy as np
 from datetime import datetime
-# Visualization
+
 import matplotlib.pyplot as plt
 import seaborn as sns
-# Causal impact
+
 from causalimpact import CausalImpact
 import numpy as np
+
+try:
+    np.distutils.__config__.blas_opt_info = np.distutils.__config__.blas_ilp64_opt_info
+except Exception:
+    pass
 import streamlit as st
 from PIL import Image
 import sys
