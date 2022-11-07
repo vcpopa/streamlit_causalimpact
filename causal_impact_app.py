@@ -14,6 +14,7 @@ import sys
 import re
 from datetime import datetime
 import os
+import io
 # from streamlit import caching
 
 import traceback
@@ -92,7 +93,8 @@ if __name__=="__main__":
         file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
 
         if file is not None:
-            df=pd.read_csv(file)
+            data=io.TextIOWrapper(file)
+            df=pd.read_csv(data)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
