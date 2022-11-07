@@ -3,6 +3,6 @@ matplotlib==3.6.2
 numpy==1.20.3
 pandas==1.5.1
 Pillow==9.3.0
-pycausalimpact==0.0.15
+pycausalimpact==0.1.1
 seaborn==0.12.1
 streamlit==1.14.0
