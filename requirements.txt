@@ -1,0 +1,8 @@
+causalimpact==0.2.4
+matplotlib==3.5.3
+numpy==1.23.4
+pandas==1.5.1
+Pillow==9.3.0
+pycausalimpact==0.1.1
+seaborn==0.12.1
+streamlit==1.14.0
