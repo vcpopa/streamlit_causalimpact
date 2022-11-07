@@ -79,8 +79,10 @@ class Impact():
         impact_plot=impact.plot()
 #         impact.run()
         impact_summary=impact.summary()
+        st.info(impact_summary)
 #         impact.run()
         report=impact.summary(output='report')
+        st.info(report)
 
         return ts_fig,impact_plot,impact_summary,report
 
