@@ -72,7 +72,7 @@ class Impact():
 
     # Causal impact model
         impact = CausalImpact(data=self.df, pre_period=pre_period, post_period=post_period)
-        st.markdown(impact)
+        impact.run()
         # Visualization
         impact_plot=impact.plot()
         impact_plot=None
