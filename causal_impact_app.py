@@ -18,6 +18,7 @@ import io
 
 class Impact():
     def __init__(self,df,date_col,control,response,treatment_start):
+        st.markdown("INIT")
         self.df=df
         self.date_col=date_col
         self.control=control
@@ -37,7 +38,9 @@ class Impact():
         self.treatment_start_index=self.df.index[self.df[self.date_col]==self.treatment_start]
 
         self.start_date_index=int(self.df.index[self.df[self.date_col]==self.df[self.date_col].min()][0])
+        st.markdown(self.start_date_index)
         self.end_date_index=int(self.df.index[self.df[self.date_col]==self.df[self.date_col].max()][0])
+        st.markdown(self.end_date_index)
 
         if len(self.treatment_start_index)>1:
             raise ValueError(f"{self.treatment_start} occurs multiple times in the dataset, please aggregate your data")
@@ -52,7 +55,9 @@ class Impact():
         ts_fig=plt.figure()
         st.header("TIME SERIES PLOT")
         sns.set(rc={'figure.figsize':(12,8)})
+        st.markdown("PLOTTING CONTROL")
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.control],label='CONTROL')
+        st.markdown("PLOTTING RESPONSE")
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.response],label='RESPONSE')
 #         plt.axvline(x= self.df[self.date_col].iloc[self.treatment_start_index],color='r')
         
@@ -61,6 +66,7 @@ class Impact():
 
         
         pre_period = [pd.to_datetime(date) for date in  [self.df[self.date_col].min(),self.df[self.date_col].iloc[self.treatment_start_index-1]]]
+        st.markdown("PRE-PERIOD")
         post_period = [pd.to_datetime(date) for date in [self.df[self.date_col].iloc[self.treatment_start_index],self.df[self.date_col].max()]]
         self.df.set_index(self.date_col,inplace=True)
 
