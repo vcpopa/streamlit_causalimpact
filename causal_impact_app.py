@@ -14,7 +14,7 @@ import sys
 import re
 from datetime import datetime
 import os
-from streamlit import caching
+# from streamlit import caching
 
 import traceback
 sys.tracebacklimit = 0
@@ -96,7 +96,7 @@ def get_data(file):
     return df
 
 if __name__=="__main__":
-    caching.clear_cache()
+#     caching.clear_cache()
     try:
         st.title('CAUSAL IMPACT ANALYSIS')
         # st.header('Analyze the descriptive statistics and the dsistribution of your data. Preview and save your graphics.')
