@@ -60,7 +60,7 @@ class Impact():
         sns.set(rc={'figure.figsize':(12,8)})
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.control],label='CONTROL')
         sns.lineplot(x=self.df[self.date_col], y=self.df[self.response],label='RESPONSE')
-        plt.axvline(x= self.df[self.date_col].iloc[self.treatment_start_index],color='r')
+#         plt.axvline(x= self.df[self.date_col].iloc[self.treatment_start_index],color='r')
         
         
         # Set pre-period
@@ -96,7 +96,7 @@ if __name__=="__main__":
         
         if file is not None:
             df=pd.read_csv(file)
-            st.table(df)
+#             st.table(df)
             df2=df.copy()
             cols_menu_opts=df.columns
             mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
