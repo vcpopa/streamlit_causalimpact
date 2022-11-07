@@ -91,7 +91,7 @@ if __name__=="__main__":
 
         st.image(image_main)
         st.sidebar.image(image_side)
-        file  = st.sidebar.file_uploader('Upload data', type = ['csv'])
+        file  = st.sidebar.file_uploader('Upload data', type = 'csv')
 
         
         if file is not None:
