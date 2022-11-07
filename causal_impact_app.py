@@ -110,7 +110,7 @@ if __name__=="__main__":
 
         if st.sidebar.button("RUN"):
             imp=Impact(df=df,date_col=date_col,control=control,response=response,treatment_start=treatment_start)
-            st.markdown(imp.date_col)
+            
             ts_fig,impact_plot,impact_summary,report=imp.causal_impact()
             
             st.pyplot(ts_fig)
@@ -122,11 +122,11 @@ if __name__=="__main__":
 #             impact_summary=impact_summary.replace("\n","<br>")
 #             impact_summary=impact_summary.replace("{Causal Impact}","")
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-            st.markdown(impact_summary,unsafe_allow_html=True)
+            st.text(impact_summary)
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
-            st.markdown(report)
+            st.text(report)
 
 
 
