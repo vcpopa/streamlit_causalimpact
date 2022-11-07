@@ -15,12 +15,6 @@ import re
 from datetime import datetime
 import os
 import io
-# from streamlit import caching
-
-import traceback
-sys.tracebacklimit = 0
-
-st.set_option('deprecation.showPyplotGlobalUse', False)
 
 class Impact():
     def __init__(self,df,date_col,control,response,treatment_start):
@@ -83,51 +77,49 @@ class Impact():
 
 if __name__=="__main__":
 #     caching.clear_cache()
-    try:
-        st.title('CAUSAL IMPACT ANALYSIS')
-        # st.header('Analyze the descriptive statistics and the dsistribution of your data. Preview and save your graphics.')
-        image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
-        image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
 
-        st.image(image_main)
-        st.sidebar.image(image_side)
-        file  = st.sidebar.file_uploader('Upload data', type = 'csv')
+    st.title('CAUSAL IMPACT ANALYSIS')
+    # st.header('Analyze the descriptive statistics and the dsistribution of your data. Preview and save your graphics.')
+    image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
+    image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
 
-        
-        if file is not None:
-            df=pd.read_csv(file)
+    st.image(image_main)
+    st.sidebar.image(image_side)
+    file  = st.sidebar.file_uploader('Upload data', type = 'csv')
+
+
+    if file is not None:
+        df=pd.read_csv(file)
 #             st.table(df)
-            df2=df.copy()
-            cols_menu_opts=df.columns
-            mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
-            date_column_options=df2.loc[:,mask].columns
-            date_col= st.sidebar.selectbox("Select date column", date_column_options)
-            df[date_col]=pd.to_datetime(df[date_col])
-            control= st.sidebar.selectbox("Select control column", cols_menu_opts)
-            response= st.sidebar.selectbox("Select response column", cols_menu_opts)
-            treatment_start=st.sidebar.date_input(label="Enter your intervention start date",value=None,min_value=df[date_col].min(),max_value=None)
+        df2=df.copy()
+        cols_menu_opts=df.columns
+        mask = df2.astype(str).apply(lambda x : x.str.match('(\d{2,4}(-|\/|\\|\.| )\d{2}(-|\/|\\|\.| )\d{2,4})+').any())
+        date_column_options=df2.loc[:,mask].columns
+        date_col= st.sidebar.selectbox("Select date column", date_column_options)
+        df[date_col]=pd.to_datetime(df[date_col])
+        control= st.sidebar.selectbox("Select control column", cols_menu_opts)
+        response= st.sidebar.selectbox("Select response column", cols_menu_opts)
+        treatment_start=st.sidebar.date_input(label="Enter your intervention start date",value=None,min_value=df[date_col].min(),max_value=None)
 
-            if st.sidebar.button("RUN"):
-                imp=Impact(df=df,date_col=date_col,control=control,response=response,treatment_start=treatment_start)
-                ts_fig,impact_plot,impact_summary,report=imp.causal_impact()
-                st.markdown(imp.date_col)
-                st.pyplot(ts_fig)
+        if st.sidebar.button("RUN"):
+            imp=Impact(df=df,date_col=date_col,control=control,response=response,treatment_start=treatment_start)
+            ts_fig,impact_plot,impact_summary,report=imp.causal_impact()
+            st.markdown(imp.date_col)
+            st.pyplot(ts_fig)
 
-                st.header("IMPACT PLOTS")
-                st.pyplot(impact_plot)
+            st.header("IMPACT PLOTS")
+            st.pyplot(impact_plot)
 
-                st.header("SUMMARY REPORT")
-                impact_summary=impact_summary.replace("\n","<br>")
-                impact_summary=impact_summary.replace("{Causal Impact}","")
-                impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-                st.markdown(impact_summary,unsafe_allow_html=True)
+            st.header("SUMMARY REPORT")
+            impact_summary=impact_summary.replace("\n","<br>")
+            impact_summary=impact_summary.replace("{Causal Impact}","")
+            impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
+            st.markdown(impact_summary,unsafe_allow_html=True)
 
-                st.header("FULL REPORT")
-                report=report.replace("{CausalImpact}","")
-                st.markdown(report)
-    
-    except:
-        st.markdown(traceback.format_exc())
+            st.header("FULL REPORT")
+            report=report.replace("{CausalImpact}","")
+            st.markdown(report)
+
 
 
        
