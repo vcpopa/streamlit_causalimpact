@@ -106,7 +106,7 @@ if __name__=="__main__":
             ts_fig,impact=imp.causal_impact()
             
             st.pyplot(ts_fig)
-
+            impact.run()
             st.header("IMPACT PLOTS")
             st.pyplot(impact.plot())
 
