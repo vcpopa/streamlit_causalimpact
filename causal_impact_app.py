@@ -80,6 +80,7 @@ class Impact():
         st.markdown("IMPACT MODEL INIT")
         # Visualization
         impact_plot=impact.plot()
+        st.markdown("IMPACT PLOTTED")
         impact_summary=impact.summary()
         report=impact.summary(output='report')
 
