@@ -16,7 +16,7 @@ import re
 from datetime import datetime
 import os
 import traceback
-from io import StringIO
+from io import StringIO,redirect_stdout
 sys.tracebacklimit = 0
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
