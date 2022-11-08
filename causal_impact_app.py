@@ -106,7 +106,7 @@ if __name__=="__main__":
             ts_fig,impact=imp.causal_impact()
             
             st.pyplot(ts_fig)
-            impact.run()
+#             impact.run()
             st.header("IMPACT PLOTS")
             st.pyplot(impact.plot())
 
@@ -114,12 +114,12 @@ if __name__=="__main__":
 #             impact_summary=impact_summary.replace("\n","<br>")
 #             impact_summary=impact_summary.replace("{Causal Impact}","")
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-            impact.run()
+#             impact.run()
             st.write(str(impact.summary()),unsafe_allow_html=True)
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
-            impact.run()
+#             impact.run()
             st.write(str(impact.summary(output='report')),unsafe_allow_html=True)
 
 
