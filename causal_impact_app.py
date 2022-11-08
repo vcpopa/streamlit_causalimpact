@@ -15,8 +15,8 @@ import sys
 import re
 from datetime import datetime
 import os
-import io
 import traceback
+from io import StringIO
 sys.tracebacklimit = 0
 st.set_option('deprecation.showPyplotGlobalUse', False)
 
@@ -81,16 +81,16 @@ class Impact():
 if __name__=="__main__":
     @contextmanager
     def st_capture(output_func):
-    with StringIO() as stdout, redirect_stdout(stdout):
-        old_write = stdout.write
+        with StringIO() as stdout, redirect_stdout(stdout):
+            old_write = stdout.write
 
-        def new_write(string):
-            ret = old_write(string)
-            output_func(stdout.getvalue())
-            return ret
+            def new_write(string):
+                ret = old_write(string)
+                output_func(stdout.getvalue())
+                return ret
 
-        stdout.write = new_write
-        yield
+            stdout.write = new_write
+            yield
     st.title('CAUSAL IMPACT ANALYSIS')
     image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
     image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
@@ -122,13 +122,6 @@ if __name__=="__main__":
             impact.run()
             st.header("IMPACT PLOTS")
             st.pyplot(impact.plot())
-
-            st.header("SUMMARY REPORT")
-#             impact_summary=impact_summary.replace("\n","<br>")
-#             impact_summary=impact_summary.replace("{Causal Impact}","")
-#             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
-#             impact.run()
-            st.write(str(impact.summary()),unsafe_allow_html=True)
             output = st.empty()
             with st_capture(output.code):
                 st.header("SUMMARY")
