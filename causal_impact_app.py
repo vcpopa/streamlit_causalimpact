@@ -117,7 +117,7 @@ if __name__=="__main__":
             st.write(impact.summary())
 
             st.header("FULL REPORT")
-            report=report.replace("{CausalImpact}","")
+#             report=report.replace("{CausalImpact}","")
             st.write(summary(output='report'))
 
 
