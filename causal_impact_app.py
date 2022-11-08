@@ -2,6 +2,7 @@ from cProfile import label
 import pandas as pd
 import numpy as np
 from datetime import datetime
+from contextlib import contextmanager
 # Visualization
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -78,6 +79,18 @@ class Impact():
 
 
 if __name__=="__main__":
+    @contextmanager
+    def st_capture(output_func):
+    with StringIO() as stdout, redirect_stdout(stdout):
+        old_write = stdout.write
+
+        def new_write(string):
+            ret = old_write(string)
+            output_func(stdout.getvalue())
+            return ret
+
+        stdout.write = new_write
+        yield
     st.title('CAUSAL IMPACT ANALYSIS')
     image_main = Image.open(os.path.join(os.getcwd(),"logo.png")).resize((800, 200))
     image_side=Image.open(os.path.join(os.getcwd(),"logo2.png"))
@@ -116,11 +129,13 @@ if __name__=="__main__":
 #             impact_summary=impact_summary.replace("For more details run the command: print(impact.summary('report'))","")
 #             impact.run()
             st.write(str(impact.summary()),unsafe_allow_html=True)
-
-            st.header("FULL REPORT")
-#             report=report.replace("{CausalImpact}","")
-#             impact.run()
-            st.write(str(impact.summary(output='report')),unsafe_allow_html=True)
+            output = st.empty()
+            with st_capture(output.code):
+                st.header("SUMMARY")
+                print(impact.summary())
+                st.header("FULL REPORT")
+                print(impact.summary(output='report'))
+ 
 
 
 
