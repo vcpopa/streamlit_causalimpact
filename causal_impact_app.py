@@ -118,6 +118,7 @@ if __name__=="__main__":
 
             st.header("FULL REPORT")
 #             report=report.replace("{CausalImpact}","")
+            st.markdown(type(impact.summary()))
             st.write(str(impact.summary(output='report')),unsafe_allow_html=True)
 
 
